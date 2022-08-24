@@ -1,10 +1,14 @@
-import { parse } from '@swc/core';
+import Scope from './runtime/scope';
+import Sandbox from './sandbox';
 
-parse("console.log('hello world')", {
-    syntax: 'ecmascript',
-    target: 'es5',
-    isModule: false,
-    script: false,
-}).then(res => {
-    console.log(res.body);
+const scope = new Scope();
+
+scope.set('console', console);
+
+const sandbox = new Sandbox('console.log("hello world")', {
+    scope,
+});
+
+sandbox.excute().then((res) => {
+    console.log(res);
 });

@@ -1,15 +1,19 @@
 import { parse, Module } from '@swc/core';
+import Script from '../interpreter/script';
+import Scope from '../runtime/scope';
 
-interface SandboxOptins {}
+interface SandboxOptins {
+    scope: Scope;
+}
 
-const defaultOptions: SandboxOptins = {};
+const defaultOptions: Partial<SandboxOptins> = {};
 
 export default class Sandbox {
-    private options: SandboxOptins = defaultOptions;
+    private options: SandboxOptins = <SandboxOptins>defaultOptions;
 
     private ast: Module | null = null;
 
-    constructor(public code: string, options: Partial<SandboxOptins>) {
+    constructor(public code: string, options: Partial<SandboxOptins> = {}) {
         Object.assign(this.options, options);
     }
 
@@ -17,6 +21,7 @@ export default class Sandbox {
         const ast = await parse(this.code, {
             syntax: 'ecmascript',
             target: 'es5',
+            script: false,
         });
 
         return ast;
@@ -26,5 +31,11 @@ export default class Sandbox {
         const ast = this.ast || (await this.parse());
 
         if (this.ast === null) this.ast = ast;
+
+        const scope = new Scope();
+
+        Scope.merge_scope(scope, this.options.scope);
+
+        Script(ast.body, { scope });
     }
 }
