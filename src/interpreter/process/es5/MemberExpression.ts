@@ -17,5 +17,5 @@ export default function member_expression(node: MemberExpression, scope: Scope) 
             return script(node, scope);
     }
 
-    return Reflect.get(object, property);
+    return [Reflect.get(object, property), object];
 }
