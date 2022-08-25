@@ -32,8 +32,6 @@ export function script(module: AstNode, scope: Scope) {
     // @ts-ignore
     const action = actions[module.type];
 
-    console.log(module);
-
     if (action) {
         return action(module, scope);
     } else {
