@@ -1,6 +1,6 @@
 {
-  "name": "swc-js-interpreter",
-  "version": "1.0.0",
+  "name": "sandbox",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
