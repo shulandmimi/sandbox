@@ -19,5 +19,5 @@ export default async function Script(modules: (ModuleItem | Expression)[], optio
         }
     }
 
-    module(modules, scope);
+    return module(modules, scope);
 }

@@ -1,6 +1,5 @@
-import Sandbox from '../src/sandbox';
-import Scope from '../src/runtime/scope';
-import { initial_properties_from_object } from '../src/interpreter/process/default';
+import Sandbox from '../../../src/sandbox';
+import { initial_properties_from_object } from '../../../src/interpreter/process/default';
 
 describe('function call', () => {
     it('function 可以被执行', async () => {

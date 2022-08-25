@@ -36,6 +36,11 @@ export default class Sandbox {
 
         Scope.merge_scope(scope, this.options.scope);
 
-        await Script(ast.body, { scope });
+        const result = await Script(ast.body, { scope });
+
+        return {
+            result,
+            global: scope,
+        };
     }
 }

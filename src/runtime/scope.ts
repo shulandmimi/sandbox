@@ -1,4 +1,4 @@
-import { Variate } from './variate';
+import { ConstVariate, LetVariate, Variate, VarVariate } from './variate';
 
 export default class Scope {
     parent: Scope | null = null;
@@ -26,6 +26,27 @@ export default class Scope {
         }
 
         return false;
+    }
+
+    const(key: string, value: any) {
+        if (this.scope.has(key)) {
+            return false;
+        }
+        this.scope.set(key, new ConstVariate(value));
+        return true;
+    }
+
+    let(key: string, value: any) {
+        if (this.scope.has(key)) {
+            return false;
+        }
+        this.scope.set(key, new LetVariate(value));
+        return true;
+    }
+
+    var(key: string, value: any) {
+        this.scope.set(key, new VarVariate(value));
+        return true;
     }
 
     static merge_scope(scope: Scope, ...scopes: (Map<string, Variate> | Scope)[]) {
