@@ -30,4 +30,23 @@ describe('function declaration', () => {
         const function_context = global.get('foo')?.get()();
         expect(function_context).toEqual({ name: 123 });
     });
+
+    it('repeat declaration function', async () => {
+        const source = `
+            function foo() {
+                return 'first';
+            }
+            function foo() {
+                return 'second';
+            }
+        `;
+
+        const sandbox = new Sandbox(source);
+
+        const { global } = await sandbox.excute();
+
+        const foo = global.get('foo')?.get()();
+
+        expect(foo).toBe('second');
+    });
 });

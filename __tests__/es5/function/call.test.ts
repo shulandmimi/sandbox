@@ -37,4 +37,37 @@ describe('function call', () => {
             expect(foo).toHaveLastReturnedWith(obj);
         });
     });
+
+    describe('params', () => {
+        it('Parameter passing', async () => {
+            const source = `
+                function foo(first, second, third) {
+                    return [first, second, third];
+                }
+            `;
+
+            const sandbox = new Sandbox(source);
+
+            const { global } = await sandbox.excute();
+
+            const foo = global.get('foo')?.get();
+
+            expect(foo('1', '2', '3')).toEqual(['1', '2', '3']);
+        });
+
+        it('arguments', async () => {
+            const source = `
+                function foo() {
+                    return arguments;
+                }
+            `;
+
+            const sandbox = new Sandbox(source);
+
+            const { global } = await sandbox.excute();
+
+            const foo = global.get('foo')?.get();
+            expect(foo(1, 2, 3)).toEqual({ '0': 1, '1': 2, '2': 3, length: 3 });
+        });
+    });
 });
