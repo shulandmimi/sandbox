@@ -24,8 +24,10 @@ import number_literal from './Literal/Number';
 import return_statement from './ReturnStatement';
 import array_expression from './Expression/ArrayExpression';
 import variable_declaration from './Declaration/VariableDeclaration';
+import scope_preload from './Rule/scope/scope_preload';
 
 export default <ScriptProcessHandler>function scripts(modules, scope) {
+    scope_preload(modules, scope);
     modules.forEach((module) => script(module, scope));
 };
 

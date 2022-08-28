@@ -9,7 +9,7 @@ export default function call_expression(node: CallExpression, scope: Scope) {
 
     switch (node.callee.type) {
         case 'Identifier': {
-            callee = <Function>script(node.callee, scope);
+            callee = <Function>scope.get(node.callee.value)?.get();
             break;
         }
         case 'MemberExpression': {

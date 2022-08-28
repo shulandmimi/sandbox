@@ -5,7 +5,8 @@ import { script } from './index';
 export default function function_declaration(node: FunctionDeclaration, scope: Scope) {
     const callback = function (this: any, ...arg: any[]) {
         const function_scope = new Scope();
-        scope.parent = scope;
+
+        function_scope.parent = scope;
 
         const objectArguments: Record<string, any> = { length: arg.length };
         for (let i = 0; i < arg.length; i++) {

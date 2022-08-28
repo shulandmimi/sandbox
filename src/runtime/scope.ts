@@ -49,6 +49,20 @@ export default class Scope {
         return true;
     }
 
+    has_in_current_scope(key: string): boolean {
+        return this.scope.has(key);
+    }
+
+    has_in_scope(key: string): boolean {
+        let scope: Scope | null = this;
+        while (scope) {
+            if (scope.has_in_current_scope(key)) return true;
+            else scope = scope.parent;
+        }
+
+        return false;
+    }
+
     static merge_scope(scope: Scope, ...scopes: (Map<string, Variate> | Scope)[]) {
         for (const s of scopes) {
             if (!s) continue;
