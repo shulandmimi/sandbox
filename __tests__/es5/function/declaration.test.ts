@@ -1,4 +1,4 @@
-import Sandbox from '../../../src/sandbox';
+import Sandbox from '@/sandbox';
 
 describe('function declaration', () => {
     it('declaration foo', async () => {
