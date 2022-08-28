@@ -23,6 +23,7 @@ import this_expression from './Expression/ThisExpression';
 import number_literal from './Literal/Number';
 import return_statement from './ReturnStatement';
 import array_expression from './Expression/ArrayExpression';
+import variable_declaration from './Declaration/VariableDeclaration';
 
 export default <ScriptProcessHandler>function scripts(modules, scope) {
     modules.forEach((module) => script(module, scope));
@@ -41,6 +42,7 @@ interface Actions {
     NumericLiteral: typeof number_literal;
     ReturnStatement: typeof return_statement;
     ArrayExpression: typeof array_expression;
+    VariableDeclaration: typeof variable_declaration;
 }
 
 const actions: Actions = {
@@ -56,6 +58,7 @@ const actions: Actions = {
     NumericLiteral: number_literal,
     ReturnStatement: return_statement,
     ArrayExpression: array_expression,
+    VariableDeclaration: variable_declaration,
 };
 
 export function script(module: AstNode, scope: Scope) {
